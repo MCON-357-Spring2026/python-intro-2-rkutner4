@@ -36,15 +36,18 @@ Example:
 
 class Product:
     def __init__(self, name: str, price: float, quantity: int = 0):
-        # TODO: Initialize instance attributes
-        pass
+        self.name = name
+        self.price = price
+        self.quantity = quantity
+
+    pass
 
     def get_total_value(self) -> float:
-        # TODO: Return price * quantity
+        return self.price * self.quantity
         pass
 
     def is_in_stock(self) -> bool:
-        # TODO: Return True if quantity > 0
+        return self.quantity > 0
         pass
 
 
@@ -79,25 +82,37 @@ Example:
 """
 
 class BankAccount:
-    # TODO: Add class attributes here
+    bank_name = "Python Bank"
+    total_accounts = 0
 
     def __init__(self, account_number: str, owner: str, balance: float = 0.0):
         # TODO: Initialize instance attributes
         # TODO: Increment total_accounts
+        self.account_number = account_number
+        self.owner = owner
+        self.balance = balance
+        BankAccount.total_accounts += 1
         pass
 
     def deposit(self, amount: float) -> float:
         # TODO: Add amount to balance and return new balance
+        self.balance += amount
+        return self.balance
         pass
 
     def withdraw(self, amount: float) -> float:
         # TODO: Subtract amount from balance
         # TODO: Raise ValueError if amount > balance
+        if amount > self.balance:
+            raise ValueError("Insufficient funds")
+        self.balance -= amount
+        return self.balance
         pass
 
     def get_info(self) -> str:
         # TODO: Return string like "Account A001 (Alice): $100.00"
-        pass
+        return f"Account {self.account_number} ({self.owner}): ${self.balance:.2f}"
+    pass
 
 
 # =============================================================================
@@ -134,24 +149,31 @@ Example:
 class Temperature:
     def __init__(self, celsius: float):
         # TODO: Initialize celsius attribute
+        self.celsius = celsius
         pass
 
     @classmethod
     def from_fahrenheit(cls, fahrenheit: float) -> "Temperature":
         # TODO: Convert F to C and create Temperature instance
+        celsius = (fahrenheit - 32) * 1.8
+        return cls(celsius)
         pass
 
     @classmethod
     def from_kelvin(cls, kelvin: float) -> "Temperature":
         # TODO: Convert K to C and create Temperature instance
+        celsius = kelvin - 273.15
+        return cls(celsius)
         pass
 
     def to_fahrenheit(self) -> float:
         # TODO: Return temperature in Fahrenheit
+        return self.celsius * 1.8 + 32
         pass
 
     def to_kelvin(self) -> float:
         # TODO: Return temperature in Kelvin
+        return self.celsius + 273.15
         pass
 
 
@@ -205,14 +227,19 @@ Example:
 class Employee:
     def __init__(self, name: str, employee_id: str, base_salary: float):
         # TODO: Initialize attributes
+        self.name = name
+        self.employee_id = employee_id
+        self.base_salary = base_salary
         pass
 
     def get_annual_salary(self) -> float:
         # TODO: Return base_salary
+        return self.base_salary
         pass
 
     def get_info(self) -> str:
         # TODO: Return formatted string
+        return f"ID: {self.employee_id} - {self.name}"
         pass
 
 
@@ -220,15 +247,20 @@ class Manager(Employee):
     def __init__(self, name: str, employee_id: str, base_salary: float,
                  department: str, bonus: float = 0):
         # TODO: Call parent constructor with super()
+        super().__init__(name, employee_id, base_salary)
         # TODO: Initialize department and bonus
+        self.department = department
+        self.bonus = bonus
         pass
 
     def get_annual_salary(self) -> float:
         # TODO: Return base_salary + bonus
+        return self.base_salary + self.bonus
         pass
 
     def get_info(self) -> str:
         # TODO: Return formatted string with Manager info
+        return f"ID: {self.employee_id} - {self.name} (Manager, {self.department})"
         pass
 
 
@@ -236,15 +268,19 @@ class Developer(Employee):
     def __init__(self, name: str, employee_id: str, base_salary: float,
                  programming_languages: list = None):
         # TODO: Call parent constructor with super()
+        super().__init__(name, employee_id, base_salary)
         # TODO: Initialize programming_languages (use empty list if None)
+        self.programming_languages = programming_languages
         pass
 
     def add_language(self, language: str) -> None:
         # TODO: Add language to the list
+        self.programming_languages.append(language)
         pass
 
     def get_info(self) -> str:
         # TODO: Return formatted string with Developer info
+        return f"ID: {self.employee_id} - {self.name} (Developer)"
         pass
 
 
